@@ -1,2 +1,2 @@
 # blocks
-Modern, efficient, filterable, and rearrangeable masonry solution.
+Modern, efficient, and rearrangeable masonry solution.
