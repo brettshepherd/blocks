@@ -115,30 +115,6 @@ var Blocks = /** @class */ (function () {
                 _this.elementHeights[index] + _this.currentSize.gutter;
         });
     };
-    //update layout, only packing newly found unpacked blocks (used for appending)
-    Blocks.prototype.update = function () {
-        //select unpacked elements
-        this.elements = this.selectChildren(true);
-        //get those elements heights
-        this.elementHeights = this.setElementHeights();
-        //set those elements styles
-        this.setElementsStyles();
-    };
-    //find all blocks and place them
-    Blocks.prototype.rePack = function () {
-        //reset column heights elements
-        this.columnHeights = this.fillEmptyColumns();
-        //reselect all elements
-        this.elements = this.selectChildren(false);
-        //set element height array
-        this.elementHeights = this.setElementHeights();
-        //set column width using first element since all have fixed width
-        this.columnWidth = this.elements[0].offsetWidth;
-        //set container width
-        this.container.style.width = this.getContainerWidth();
-        //set elements styles
-        this.setElementsStyles();
-    };
     //check media querys and return approprite size base on passed in options
     Blocks.prototype.checkMediaQuery = function () {
         // find index of widest matching media query
@@ -178,6 +154,30 @@ var Blocks = /** @class */ (function () {
     Blocks.prototype.getContainerWidth = function () {
         return this.columnWidth * this.currentSize.columns +
             this.currentSize.gutter * (this.currentSize.columns - 1) + "px";
+    };
+    //update layout, only packing newly found unpacked blocks (used for appending)
+    Blocks.prototype.update = function () {
+        //select unpacked elements
+        this.elements = this.selectChildren(true);
+        //get those elements heights
+        this.elementHeights = this.setElementHeights();
+        //set those elements styles
+        this.setElementsStyles();
+    };
+    //find all blocks and place them
+    Blocks.prototype.rePack = function () {
+        //reset column heights elements
+        this.columnHeights = this.fillEmptyColumns();
+        //reselect all elements
+        this.elements = this.selectChildren(false);
+        //set element height array
+        this.elementHeights = this.setElementHeights();
+        //set column width using first element since all have fixed width
+        this.columnWidth = this.elements[0].offsetWidth;
+        //set container width
+        this.container.style.width = this.getContainerWidth();
+        //set elements styles
+        this.setElementsStyles();
     };
     //remove window resize listener
     Blocks.prototype.destroy = function () {

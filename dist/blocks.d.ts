@@ -9,40 +9,28 @@ export interface BlockOptions {
     usePosition?: boolean;
 }
 export declare class Blocks {
-    container: HTMLElement;
-    elements: HTMLElement[];
-    columnHeights: any[];
-    columnWidth: number;
-    elementHeights: number[];
-    sizes: {
-        columns: number;
-        minWidth: number;
-        gutter: number;
-    }[];
-    currentSize: {
-        columns: number;
-        minWidth: number;
-        gutter: number;
-    };
-    resizeDelay: number;
-    resizeThrottle: boolean;
-    boundResize: any;
-    animationEndClass: string;
-    usePosition: boolean;
+    private container;
+    private elements;
+    private columnHeights;
+    private columnWidth;
+    private elementHeights;
+    private sizes;
+    private currentSize;
+    private resizeDelay;
+    private resizeThrottle;
+    private boundResize;
+    private animationEndClass;
+    private usePosition;
     constructor(options: BlockOptions);
-    selectChildren(onlyUnPacked: boolean): HTMLElement[];
-    setElementHeights(): number[];
-    fillEmptyColumns(): any[];
-    setElementsStyles(): void;
+    private selectChildren(onlyUnPacked);
+    private setElementHeights();
+    private fillEmptyColumns();
+    private setElementsStyles();
+    private checkMediaQuery();
+    private onWindowResize();
+    private setupResize();
+    private getContainerWidth();
     update(): void;
     rePack(): void;
-    checkMediaQuery(): {
-        columns: number;
-        minWidth: number;
-        gutter: number;
-    };
-    onWindowResize(): void;
-    setupResize(): void;
-    getContainerWidth(): string;
     destroy(): void;
 }
