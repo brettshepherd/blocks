@@ -9,40 +9,40 @@ export class Blocks {
   //--------variables--------
 
   //holding container of grid elements
-  container: HTMLElement;
+  private container: HTMLElement;
 
   //child nodes of container
-  elements: HTMLElement[];
+  private elements: HTMLElement[];
 
   //column number array
-  columnHeights: any[];
+  private columnHeights: any[];
 
   //columnWidth
-  columnWidth: number;
+  private columnWidth: number;
 
   //element heights array
-  elementHeights: number[] = [];
+  private elementHeights: number[] = [];
 
   //grid sizes object
-  sizes: { columns: number; minWidth: number; gutter: number }[] = [];
+  private sizes: { columns: number; minWidth: number; gutter: number }[] = [];
 
   //current size object
-  currentSize: { columns: number; minWidth: number; gutter: number };
+  private currentSize: { columns: number; minWidth: number; gutter: number };
 
   //window resize delay in milliseconds
-  resizeDelay: number = 100;
+  private resizeDelay: number = 100;
 
   // is currently throttling resize
-  resizeThrottle: boolean = false;
+  private resizeThrottle: boolean = false;
 
   //resize refernce with bound this
-  boundResize: any;
+  private boundResize: any;
 
   //animation end class
-  animationEndClass: string = "placed";
+  private animationEndClass: string = "placed";
 
   //place elements using position of transform
-  usePosition: boolean = true;
+  private usePosition: boolean = true;
 
   //--------constructor--------
   constructor(options: BlockOptions) {
@@ -83,7 +83,7 @@ export class Blocks {
   //-------methods--------
 
   //return array aor either all children (false), or only unpacked (true)
-  selectChildren(onlyUnPacked: boolean): HTMLElement[] {
+  private selectChildren(onlyUnPacked: boolean): HTMLElement[] {
     //if selecting non packed elements
     if (onlyUnPacked) {
       return Array.from(this.container.children).filter(node => {
@@ -97,7 +97,7 @@ export class Blocks {
   }
 
   //return array of all container children heights
-  setElementHeights() {
+  private setElementHeights(): number[] {
     let heights: number[] = [];
 
     this.elements.forEach(element => {
@@ -108,12 +108,12 @@ export class Blocks {
   }
 
   //return array with a length of # of columns, and value of 0
-  fillEmptyColumns() {
+  private fillEmptyColumns(): number[] {
     return new Array(this.currentSize.columns).fill(0);
   }
 
   //find appropriate column for element, and set styles to place block
-  setElementsStyles() {
+  private setElementsStyles() {
     this.elements.forEach((element, index) => {
       //set column
       let columnTarget = this.columnHeights.indexOf(
@@ -154,6 +154,52 @@ export class Blocks {
     });
   }
 
+  //check media querys and return approprite size base on passed in options
+  private checkMediaQuery() {
+    // find index of widest matching media query
+    let sizeIndex = this.sizes
+      .map(size => {
+        return (
+          size.minWidth &&
+          window.matchMedia(`(min-width: ${size.minWidth}px)`).matches
+        );
+      })
+      .indexOf(true);
+
+    //if no media query match, use first index
+    return sizeIndex === -1 ? this.sizes[0] : this.sizes[sizeIndex];
+  }
+
+  //repack if reached new media query
+  private onWindowResize() {
+    let newSize = this.checkMediaQuery();
+    if (this.currentSize != newSize) {
+      this.currentSize = newSize;
+      this.rePack();
+    }
+  }
+
+  //optimized window resize function, only executing based on resize delay
+  private setupResize() {
+    // only run if we're not throttled
+    if (!this.resizeThrottle) {
+      // actual callback action
+      this.onWindowResize();
+      // we're throttled!
+      this.resizeThrottle = true;
+      // set a timeout to un-throttle
+      setTimeout(() => {
+        this.resizeThrottle = false;
+      }, this.resizeDelay);
+    }
+  }
+
+  //return the calculated parent containers width, based on gutters and column width
+  private getContainerWidth(): string {
+    return `${this.columnWidth * this.currentSize.columns +
+      this.currentSize.gutter * (this.currentSize.columns - 1)}px`;
+  }
+
   //update layout, only packing newly found unpacked blocks (used for appending)
   update() {
     //select unpacked elements
@@ -186,53 +232,6 @@ export class Blocks {
     //set elements styles
     this.setElementsStyles();
   }
-
-  //check media querys and return approprite size base on passed in options
-  checkMediaQuery() {
-    // find index of widest matching media query
-    let sizeIndex = this.sizes
-      .map(size => {
-        return (
-          size.minWidth &&
-          window.matchMedia(`(min-width: ${size.minWidth}px)`).matches
-        );
-      })
-      .indexOf(true);
-
-    //if no media query match, use first index
-    return sizeIndex === -1 ? this.sizes[0] : this.sizes[sizeIndex];
-  }
-
-  //repack if reached new media query
-  onWindowResize() {
-    let newSize = this.checkMediaQuery();
-    if (this.currentSize != newSize) {
-      this.currentSize = newSize;
-      this.rePack();
-    }
-  }
-
-  //optimized window resize function, only executing based on resize delay
-  setupResize() {
-    // only run if we're not throttled
-    if (!this.resizeThrottle) {
-      // actual callback action
-      this.onWindowResize();
-      // we're throttled!
-      this.resizeThrottle = true;
-      // set a timeout to un-throttle
-      setTimeout(() => {
-        this.resizeThrottle = false;
-      }, this.resizeDelay);
-    }
-  }
-
-  //return the calculated parent containers width, based on gutters and column width
-  getContainerWidth() {
-    return `${this.columnWidth * this.currentSize.columns +
-      this.currentSize.gutter * (this.currentSize.columns - 1)}px`;
-  }
-
   //remove window resize listener
   destroy() {
     window.removeEventListener("resize", this.boundResize, false);
