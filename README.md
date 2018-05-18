@@ -6,7 +6,7 @@ It was created using typescript, and compiled into production ready es5 javascri
 
 ## Install
 
-Using NPM, install Blocks.ts and add it to your `package.json` dependencies.
+Using NPM, install blocks.ts and add it to your `package.json` dependencies.
 
 ```
 $ npm install blocks.ts --save
