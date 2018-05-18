@@ -1,6 +1,6 @@
 export interface BlockOptions {
   container: any;
-  sizes: { columns: number; minWidth: number; gutter: number }[];
+  sizes: { columns: number; minWidth?: number; gutter: number }[];
   animationEndClass?: string;
   usePosition?: boolean;
 }
@@ -24,10 +24,10 @@ export class Blocks {
   private elementHeights: number[] = [];
 
   //grid sizes object
-  private sizes: { columns: number; minWidth: number; gutter: number }[] = [];
+  private sizes: { columns: number; minWidth?: number; gutter: number }[] = [];
 
   //current size object
-  private currentSize: { columns: number; minWidth: number; gutter: number };
+  private currentSize: { columns: number; minWidth?: number; gutter: number };
 
   //window resize delay in milliseconds
   private resizeDelay: number = 100;
@@ -39,7 +39,7 @@ export class Blocks {
   private boundResize: any;
 
   //animation end class
-  private animationEndClass: string = "placed";
+  private animationEndClass: string;
 
   //place elements using position of transform
   private usePosition: boolean = true;
@@ -140,14 +140,16 @@ export class Blocks {
       //set packed data attribute
       element.setAttribute("data-packed", "");
 
-      // set packed class
-      element.addEventListener(
-        "animationend",
-        () => {
-          element.classList.add(this.animationEndClass);
-        },
-        { once: true }
-      );
+      // set packed class if an animation class is provided
+      if (this.animationEndClass) {
+        element.addEventListener(
+          "animationend",
+          () => {
+            element.classList.add(this.animationEndClass);
+          },
+          { once: true }
+        );
+      }
 
       this.columnHeights[columnTarget] +=
         this.elementHeights[index] + this.currentSize.gutter;

@@ -1,8 +1,9 @@
 {
-  "name": "blocksjs",
-  "version": "1.0.0",
-  "description": "Performant fixed-width masonry layout system.",
-  "main": "dist/blocks.js",
+  "name": "blocks.ts",
+  "version": "1.0.1",
+  "description": "Performant fixed-width masonry layout system with typescript support.",
+  "main": "dist/blocks",
+  "typings": "dist/blocks",
   "scripts": {
     "build": "tsc"
   },
@@ -13,7 +14,8 @@
   "keywords": [
     "masonry",
     "grid",
-    "draggable"
+    "layout",
+    "packing"
   ],
   "author": "Brett Shepherd",
   "license": "MIT",

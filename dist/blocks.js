@@ -29,8 +29,6 @@ var Blocks = /** @class */ (function () {
         this.resizeDelay = 100;
         // is currently throttling resize
         this.resizeThrottle = false;
-        //animation end class
-        this.animationEndClass = "placed";
         //place elements using position of transform
         this.usePosition = true;
         //assign grid container
@@ -107,10 +105,12 @@ var Blocks = /** @class */ (function () {
             }
             //set packed data attribute
             element.setAttribute("data-packed", "");
-            // set packed class
-            element.addEventListener("animationend", function () {
-                element.classList.add(_this.animationEndClass);
-            }, { once: true });
+            // set packed class if an animation class is provided
+            if (_this.animationEndClass) {
+                element.addEventListener("animationend", function () {
+                    element.classList.add(_this.animationEndClass);
+                }, { once: true });
+            }
             _this.columnHeights[columnTarget] +=
                 _this.elementHeights[index] + _this.currentSize.gutter;
         });

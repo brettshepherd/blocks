@@ -2,7 +2,7 @@ export interface BlockOptions {
     container: any;
     sizes: {
         columns: number;
-        minWidth: number;
+        minWidth?: number;
         gutter: number;
     }[];
     animationEndClass?: string;
