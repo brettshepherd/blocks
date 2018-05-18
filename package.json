@@ -1,6 +1,6 @@
 {
   "name": "blocks.ts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Performant fixed-width masonry layout system with typescript support.",
   "main": "dist/blocks",
   "typings": "dist/blocks",
