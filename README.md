@@ -154,7 +154,7 @@ Used to remove the window resize event listener.
 
 ```
 // remove the resize listener
-	blocks.destroy()      // 'false' removes it
+	blocks.destroy()
 })
 ```
 
