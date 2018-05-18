@@ -1,9 +1,10 @@
 
 # blocks.ts
 
-## Install
+blocks.ts is a library for creating super performant fixed width masonry style layouts.
+It was created using typescript, and compiled into production ready es5 javascript, with the additional support of .d.ts file, bringing you the benefits of type checking.
 
-Blocks.ts was created using modern typescript, and compiled into production ready es5 javascript, with the additional support of .d.ts file, bringing you the benefits of type checking.
+## Install
 
 Using NPM, install Blocks.ts and add it to your `package.json` dependencies.
 
