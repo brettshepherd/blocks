@@ -1,3 +1,7 @@
 node_modules/
+<<<<<<< HEAD
 lib/
 tsconfig.json
+=======
+
+>>>>>>> 4c11347c709d0d7445ca5f7819fd6200a88ddaf1
