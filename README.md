@@ -136,7 +136,7 @@ Used to pack _all elements_ within the container.
 	blocks.rePack()
 ```
 
-Note that it should be called when creating your instance, to pack the initial items.
+Note that repack is called when Blocks is first intialized. To append elements, it's more efficient to use update().
 
 ### .update()
 
