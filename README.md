@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # blocks.ts
 
 ## Install
@@ -326,4 +326,4 @@ Used to remove the window resize event listener.
 ## License
 
 [MIT](https://opensource.org/licenses/MIT). © 2018 Brett Shepherd
->>>>>>> a571a443457042339e23999e20f3e62abc467780
+
