@@ -28,8 +28,6 @@ const blocks = Blocks({
 
 ## Block options
 
-Note that all parameters, _except `position`_, are **required**:
-
 * (required) **container** (node or CSS selector)
 * (required) **sizes** (array)
 * **position** boolean (defaulting to `true`)
