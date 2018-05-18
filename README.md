@@ -1,4 +1,3 @@
-
 # blocks.ts
 
 blocks.ts is a library for creating super performant fixed width masonry style layouts.
